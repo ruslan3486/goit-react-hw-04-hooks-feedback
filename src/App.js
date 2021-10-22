@@ -5,56 +5,48 @@ import Section from "./components/Section/Section";
 import FeedbackMessage from "./components/FeedbackMessage/FeedbackMessage";
 
 const App = () => {
-  // state = {
-  //   good: 0,
-  //   neutral: 0,
-  //   bad: 0,
-  // };
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  //  const onLeaveFeedback = option => {
-  //     this.setState(state => ({
-  //       [option]: state[option] + 1,
-  //     }));
-  //   };
+  const countTotalFeedback = good + bad + neutral;
 
-  const countTotalFeedback = (e) => {
-    // return Object.values(this.state).reduce((acc, option) => acc + option, 0);
+  const increment = (e) => {
     switch (e.target.name) {
       case "good":
         return setGood((prevState) => prevState + 1);
+        break;
+
       case "neutral":
         return setNeutral((prevState) => prevState + 1);
+        break;
+
       case "bad":
         return setBad((prevState) => prevState + 1);
+        break;
+
+      default:
+        break;
     }
   };
 
-  const total = good + bad + neutral;
   const countPositiveFeedbackPercentage = () => {
-    // const { good } = this.state;
-    return Math.round((good / total) * 100);
+    return Math.round((good / countTotalFeedback) * 100);
   };
 
-  // const options = Object.keys(this.state);
   return (
     <>
       <Section title="Please leave feedback">
-        <FeedbackOptions
-          // options={options}
-          onLeaveFeedback={countTotalFeedback}
-        />
+        <FeedbackOptions onLeaveFeedback={increment} />
       </Section>
 
       <Section title="Statistic">
-        {total ? (
+        {countTotalFeedback ? (
           <Statistics
             good={good}
             neutral={neutral}
             bad={bad}
-            total={total}
+            total={countTotalFeedback}
             positivePercentage={countPositiveFeedbackPercentage()}
           />
         ) : (
@@ -65,4 +57,3 @@ const App = () => {
   );
 };
 export default App;
-//  <Section title="Please leave feedback">
