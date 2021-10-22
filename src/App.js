@@ -11,8 +11,8 @@ const App = () => {
 
   const countTotalFeedback = good + bad + neutral;
 
-  const increment = (e) => {
-    switch (e.target.name) {
+  const onLeaveFeedback = (option) => {
+    switch (option) {
       case "good":
         return setGood((prevState) => prevState + 1);
         break;
@@ -33,11 +33,12 @@ const App = () => {
   const countPositiveFeedbackPercentage = () => {
     return Math.round((good / countTotalFeedback) * 100);
   };
-
+  // const options = Object.keys({ good, neutral, bad });
+  const options = ["good", "neutral", "bad"];
   return (
     <>
       <Section title="Please leave feedback">
-        <FeedbackOptions onLeaveFeedback={increment} />
+        <FeedbackOptions options={options} onLeaveFeedback={onLeaveFeedback} />
       </Section>
 
       <Section title="Statistic">
